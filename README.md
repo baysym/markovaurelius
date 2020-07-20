@@ -1,4 +1,4 @@
-# markovaurelius
+# MarkovAurelius
 
 Python-based Markov chain recreations of Marcus Aurelius' Meditations using Jeremy Singer-Vines's [markovify](https://github.com/jsvine/markovify).
 
