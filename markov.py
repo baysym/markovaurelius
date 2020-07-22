@@ -1,25 +1,21 @@
 import markovify, glob
 
+chars_per_line = 45
 
 while (True):
     corpora = glob.glob("corpora/*.txt")
 
-    select_text = "\nSelect a corpus to read from.\n"
+    select_text = "\nContents of the corpora folder:\n"
 
     for c in range(len(corpora)):
         select_text += str(c + 1) + "  " + corpora[c][8:-4] + "\n"
 
-    choice = int(input(select_text + "Choice: "))-1
+    choice = int(input(select_text + "Which corpus would you like to use?: "))-1
 
 
-    # Get raw text as a string
-    print("\nReading " + corpora[choice][8:] + "...")
+    print("\nBuilding a model based on " + corpora[choice][8:] + "...")
     with open(corpora[choice], "r", encoding="utf-8") as f:
         text = f.read()
-
-
-    # Build the model
-    print("Building the model...")
     text_model = markovify.Text(text)
 
 
@@ -34,9 +30,10 @@ while (True):
 
         # Generate a random poem with no human intervention
         if choice == "R" or choice == "r":
-            print("\nYour poem:")
+            output = ""
             for line in range(8):
-                print("   " + make_line(30))
+                output += "\n   " + make_line(chars_per_line)
+            print(output)
 
         # Generate a random poem and allow the user regenerate certain lines
         elif choice == "U" or choice == "u":
@@ -44,14 +41,13 @@ while (True):
 
             # Generate six random lines
             for i in range(8):
-                line = make_line(30)
+                line = make_line(chars_per_line)
                 lines[i] = line
             
             # Print the lines together
-            output = "\n"
+            output = ""
             for i in range(8):
-                output += str(i + 1) + "  " + lines[i]
-                if i < 7: output += "\n"
+                output += "\n" + str(i + 1) + "  " + lines[i]
             print(output)
 
             # Repeat until user exits
@@ -65,7 +61,7 @@ while (True):
                     break
 
                 # Regenerate the chosen line
-                lines[int(ltc)-1] = make_line(60)
+                lines[int(ltc)-1] = make_line(chars_per_line)
 
                 # Print the lines together
                 output = "\n-\n\n"
