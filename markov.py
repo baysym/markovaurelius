@@ -1,6 +1,6 @@
 import markovify, glob
 
-chars_per_line = 45
+chars_per_line = 35
 
 while (True):
     corpora = glob.glob("corpora/*.txt")
@@ -31,7 +31,7 @@ while (True):
         # Generate a random poem with no human intervention
         if choice == "R" or choice == "r":
             output = ""
-            for line in range(8):
+            for line in range(6):
                 output += "\n   " + make_line(chars_per_line)
             print(output)
 
